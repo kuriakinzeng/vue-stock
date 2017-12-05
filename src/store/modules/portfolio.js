@@ -13,7 +13,8 @@ const mutations = {
       // store only id and quantity
       state.stocksOwned.push({
         id: stockId,
-        quantity: quantity
+        price: stockPrice,
+        quantity: quantity,
       })
     }
     state.funds -= stockPrice * quantity;
@@ -35,6 +36,9 @@ const mutations = {
 }
 
 const actions = {
+  initPortfolio: ({commit}, portfolioSaved) => {
+    commit('LOAD_PORTFOLIO', portfolioSaved);
+  },
   buyStock: ({commit}, order) => {
     commit('BUY_STOCK', order);
   },
@@ -52,7 +56,7 @@ const getters = {
         id: stockOwned.id,
         quantity: stockOwned.quantity,
         name: record.name,
-        price: record.price
+        price: stockOwned.price
       }
     })
   },

@@ -1,23 +1,25 @@
 <template>
   <div>
-    <Stock v-for="stock in stocks" :stock="stock"></Stock>
+    <Stock v-for="stock in stocks" :stock="stock" v-if="showMode === 'grid'"></Stock>
+
+    <table class="table" v-if="showMode === 'list'">
+      <tbody>
+    <StockList v-for="stock in stocks" :stock="stock"></StockList>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
-  import {mapGetters} from 'vuex';
   import Stock from './Stock.vue';
+  import StockList from './StockList.vue';
   export default {
+    props: ['stocks', 'showMode'],
     computed: {
-      // assign state.portfolio to variable stocks
-      ...mapGetters({stocks: 'portfolio'})
-      // the above is the same as:
-      // stocks() {
-      //   return this.$store.getters.portfolio;
-      // }
     },
     components: {
-      Stock
+      Stock,
+      StockList
     }
   }
 </script>
