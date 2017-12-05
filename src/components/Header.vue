@@ -54,13 +54,21 @@
       saveData() {
         const data = {
           funds: this.funds,
-          stocks: this.stocks,
           portfolio: this.portfolio
         }
-        this.$http.put('data.json',data);
+
+        console.log(data);
+        sessionStorage.setItem('stocksPortfolio', JSON.stringify(data));
+        // this.$http.put('data.json',data);
       },
       loadData() {
-        this.loadDataAction();
+        // this.loadDataAction();
+        // Set Saved portfolio
+        const portfolioSaved = JSON.parse(sessionStorage.getItem('stocksPortfolio'));
+        console.log(portfolioSaved);
+
+        if(portfolioSaved) this.$store.dispatch('initPortfolio', JSON.parse(sessionStorage.getItem('stocksPortfolio')));
+        // sessionStorage.clear();
       }
     }
   }
